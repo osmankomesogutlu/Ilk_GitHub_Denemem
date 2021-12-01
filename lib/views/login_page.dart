@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
 
   GlobalKey _controller = GlobalKey<FormState>();
 
-  final singIn = Get.put(AuthService());
+ // final singIn = Get.put(AuthService());
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -202,7 +202,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-   yeniMetot() {
+   /* yeniMetot() {
     singIn.auth.authStateChanges().listen((User? user) {
       if(user == null){
         print('Kullanıcı çıkış yaptı');
@@ -211,5 +211,5 @@ class _LoginPageState extends State<LoginPage> {
         print('Kullanıcı Giriş Yaptı');
       }
     });
-  }
+  } */
 }

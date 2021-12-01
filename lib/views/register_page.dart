@@ -35,7 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  final singIn = Get.put(AuthService());
+  //final singIn = Get.put(AuthService());
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -255,7 +255,7 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  yeniMetot() {
+ /*  yeniMetot() {
     singIn.auth.authStateChanges().listen((User? user) {
       if (user == null) {
         print('Kullanıcı çıkış yaptı');
@@ -263,5 +263,5 @@ class _RegisterPageState extends State<RegisterPage> {
         print('Kullanıcı Giriş Yaptı');
       }
     });
-  }
+  } */
 }
