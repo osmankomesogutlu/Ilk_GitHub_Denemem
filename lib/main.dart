@@ -1,4 +1,5 @@
 import 'package:firebase_guncelleme/controllers/auth_controller.dart';
+import 'package:firebase_guncelleme/controllers/post_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -9,6 +10,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp().then((value){
     Get.put(AuthController());
+    Get.put(PostController());
   });
 
   runApp(const MyApp());

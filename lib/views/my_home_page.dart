@@ -1,5 +1,8 @@
 import 'package:firebase_guncelleme/constants/auth_controller.dart';
+import 'package:firebase_guncelleme/controllers/post_controller.dart';
+import 'package:firebase_guncelleme/models/post_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -15,9 +18,12 @@ class MyHomePage extends StatelessWidget {
       drawer: Drawer(
         child: ListView(
           children: [
-            UserAccountsDrawerHeader(
-                accountName: Text("Osman"),
-                accountEmail: Text("osman@osman.com"),),
+            Obx(
+              () => UserAccountsDrawerHeader(
+                accountName: Text(authController.userModel.value.name),
+                accountEmail: Text(authController.userModel.value.email),
+              ),
+            ),
             ListTile(
               onTap: () {
                 authController.signOut();
@@ -29,8 +35,100 @@ class MyHomePage extends StatelessWidget {
         ),
       ),
       backgroundColor: Colors.grey.shade300,
-      body: Center(
-        child: Text('Giriş Başarılı'),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              _gonderiEkleme(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  child: Obx(() => Container(
+                        height: 200,
+                        width: 500,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                            image: DecorationImage(
+                                image: NetworkImage(postController.postModel.value.imageUrl),
+                                fit: BoxFit.cover,
+                                ),),
+                                child: Text(postController.postModel.value.description),
+                      )),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          postController.postSend();
+        },
+        child: Icon(Icons.post_add),
+      ),
+    );
+  }
+
+  Container _gonderiEkleme() {
+    return Container(
+      height: 300,
+      width: 500,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+              height: 200,
+              width: 500,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                image: DecorationImage(
+                  image: NetworkImage(
+                      'https://cdn.pixabay.com/photo/2015/06/19/21/24/avenue-815297_960_720.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Text('')),
+          SizedBox(),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                controller: postController.description,
+                style: const TextStyle(
+                  color: Colors.blue,
+                ),
+                validator: (value) {},
+                cursorColor: Colors.blue,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(
+                    Icons.person,
+                    color: Colors.blue,
+                  ),
+                  hintText: 'Description',
+                  prefixText: ' ',
+                  hintStyle: TextStyle(color: Colors.blue),
+                  focusColor: Colors.blue,
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.blue,
+                    ),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

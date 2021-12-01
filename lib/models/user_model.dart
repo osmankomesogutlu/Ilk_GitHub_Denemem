@@ -10,8 +10,7 @@ class UserModel {
   UserModel({required this.id, required this.name, required this.email});
 
   factory UserModel.fromSnapshot(DocumentSnapshot snapshot) {
-    return UserModel(id: snapshot.id, name: snapshot[NAME], email: snapshot[EMAIL]);
-   
-   
-}
+    return UserModel(
+        id: snapshot[ID], name: snapshot[NAME], email: snapshot[EMAIL]);
+  }
 }

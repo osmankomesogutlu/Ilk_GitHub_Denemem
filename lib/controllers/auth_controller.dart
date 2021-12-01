@@ -4,7 +4,6 @@ import 'package:firebase_guncelleme/helpers/show_loading.dart';
 import 'package:firebase_guncelleme/models/user_model.dart';
 import 'package:firebase_guncelleme/views/login_page.dart';
 import 'package:firebase_guncelleme/views/my_home_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +15,7 @@ class AuthController extends GetxController {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   final String usersCollection = "users";
-  Rx<UserModel> userModel = UserModel(email: '', id: '', name: '').obs;
+  Rx<UserModel> userModel = UserModel(email: 'Şimdilik boş', id: '', name: 'Osman').obs;
 
   @override
   void onReady() {
@@ -30,6 +29,7 @@ class AuthController extends GetxController {
     if (user == null) {
       Get.offAll(() => const LoginPage());
     } else {
+      userModel.bindStream(listenToUser());
       Get.offAll(() => const MyHomePage());
     }
   }
@@ -117,4 +117,18 @@ class AuthController extends GetxController {
   void signOut() async {
     auth.signOut();
   }
+
+  /* Stream<QuerySnapshot> getUser(){
+    String _userId = auth.currentUser!.uid;
+    var ref = firebaseFirestore.collection(usersCollection).doc(_userId).get();
+    return ref;
+  }
+ */
+
+  Stream<UserModel> listenToUser() => firebaseFirestore
+      .collection(usersCollection)
+      .doc(firebaseUser.value!.uid)
+      .snapshots()
+      .map((snapshot) => UserModel.fromSnapshot(snapshot));
+
 }
