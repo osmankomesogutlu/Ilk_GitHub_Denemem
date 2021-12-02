@@ -16,10 +16,11 @@ class PostController extends GetxController {
   TextEditingController description = TextEditingController();
 
 
-@override
-void onReady(){
-  
-}
+ @override
+  onReady() {
+    super.onReady();
+    postModel.bindStream(getPost());
+  }
 
 
   //Post gönderme
@@ -35,9 +36,9 @@ void onReady(){
     Get.snackbar('Gönderi Eklendi', 'İşlem başarılı');
   }
 
-  Stream<QuerySnapshot> getPost(){
-    var ref = firebaseFirestore.collection(postCollection).snapshots();
-    return ref;
+  Stream<PostModel> getPost(){
+    var a = firebaseFirestore.collection(postCollection).doc().snapshots().map((snapshot) => PostModel.fromSnapshot(snapshot) );
+    return a;
   }
 
 }

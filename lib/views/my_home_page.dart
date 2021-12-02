@@ -44,17 +44,26 @@ class MyHomePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  child: Obx(() => Container(
-                        height: 200,
-                        width: 500,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                            image: DecorationImage(
-                                image: NetworkImage(postController.postModel.value.imageUrl),
-                                fit: BoxFit.cover,
-                                ),),
-                                child: Text(postController.postModel.value.description),
-                      )),
+                  child: Obx(
+                    () => Column(
+                      children: [
+                        Container(
+                          height: 300,
+                          width: 500,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.amber,
+                             image: DecorationImage(
+                                    image: NetworkImage(postController.postModel.value.imageUrl!),
+                                    fit: BoxFit.cover,
+                                    ),
+                          ),
+                          child: Text(postController.postModel.value.description!),
+                        ),
+                        Text(postController.postModel.value.description!),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],

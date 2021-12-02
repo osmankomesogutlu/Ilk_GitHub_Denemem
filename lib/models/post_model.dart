@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PostModel {
-  String id;
-  String description;
-  String imageUrl;
+  String? id;
+  String? description;
+  String? imageUrl;
 
   PostModel(
       {required this.id,
